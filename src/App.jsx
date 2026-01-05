@@ -66,23 +66,26 @@ function App() {
               >
                 Calculator
               </button>
-              <button
-                onClick={() => setCurrentView('admin')}
-                className={`px-4 py-2 rounded-lg transition-colors ${
-                  currentView === 'admin'
-                    ? 'bg-white text-blue-900 font-semibold'
-                    : 'bg-blue-800 text-blue-100 hover:bg-blue-700'
-                }`}
-              >
-                Admin
-              </button>
+              {/* Only show Admin panel in development mode */}
+              {import.meta.env.DEV && (
+                <button
+                  onClick={() => setCurrentView('admin')}
+                  className={`px-4 py-2 rounded-lg transition-colors ${
+                    currentView === 'admin'
+                      ? 'bg-white text-blue-900 font-semibold'
+                      : 'bg-blue-800 text-blue-100 hover:bg-blue-700'
+                  }`}
+                >
+                  Admin
+                </button>
+              )}
             </nav>
           </div>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-8 max-w-6xl">
-        {currentView === 'admin' ? (
+        {currentView === 'admin' && import.meta.env.DEV ? (
           <AdminPanel />
         ) : (
           <>
