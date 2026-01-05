@@ -34,33 +34,38 @@ export default function AdminPanel() {
         }
         const scheduleData = XLSX.utils.sheet_to_json(scheduleSheet);
 
-        // Validate and transform data
-        const teams = teamsData.map((row, index) => {
-          if (!row.TeamName || !row.Division) {
-            throw new Error(`Invalid team data at row ${index + 2} in Teams sheet`);
-          }
-          return {
-            name: row.TeamName,
-            division: parseInt(row.Division)
-          };
-        });
+        // Filter out empty rows and validate team data
+        const teams = teamsData
+          .filter(row => row.TeamName || row.Division) // Skip completely empty rows
+          .map((row, index) => {
+            if (!row.TeamName || !row.Division) {
+              throw new Error(`Invalid team data at row ${index + 2} in Teams sheet`);
+            }
+            return {
+              name: row.TeamName,
+              division: parseInt(row.Division)
+            };
+          });
 
-        const matches = scheduleData.map((row, index) => {
-          if (!row.Round || !row.Team1 || !row.Team2) {
-            throw new Error(`Invalid match data at row ${index + 2} in Schedule sheet`);
-          }
-          return {
-            round: parseInt(row.Round),
-            team1: row.Team1,
-            team2: row.Team2,
-            team1Score: row.Team1Score !== undefined && row.Team1Score !== '' && row.Team1Score !== null
-              ? parseFloat(row.Team1Score)
-              : null,
-            team2Score: row.Team2Score !== undefined && row.Team2Score !== '' && row.Team2Score !== null
-              ? parseFloat(row.Team2Score)
-              : null
-          };
-        });
+        // Filter out empty rows and validate match data
+        const matches = scheduleData
+          .filter(row => row.Round || row.Team1 || row.Team2) // Skip completely empty rows
+          .map((row, index) => {
+            if (!row.Round || !row.Team1 || !row.Team2) {
+              throw new Error(`Invalid match data at row ${index + 2} in Schedule sheet`);
+            }
+            return {
+              round: parseInt(row.Round),
+              team1: row.Team1,
+              team2: row.Team2,
+              team1Score: row.Team1Score !== undefined && row.Team1Score !== '' && row.Team1Score !== null
+                ? parseFloat(row.Team1Score)
+                : null,
+              team2Score: row.Team2Score !== undefined && row.Team2Score !== '' && row.Team2Score !== null
+                ? parseFloat(row.Team2Score)
+                : null
+            };
+          });
 
         // Determine current round (highest round with at least one completed match)
         let currentRound = 0;
