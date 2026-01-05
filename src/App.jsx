@@ -158,11 +158,9 @@ function App() {
       <footer className="bg-gray-800 text-gray-300 py-6 mt-12">
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm mb-2">
-            Built for JMSB MBA Case Competition 2026
+            Proudly built in Singapore 🇸🇬 with a whole lot of math, AI and love
           </p>
-          <p className="text-xs text-gray-400">
-            Probabilities are estimates based on Monte Carlo simulations • Not affiliated with official competition organizers
-          </p>
+          <p className="text-xs text-gray-400 mb-1"></p>
         </div>
       </footer>
     </div>
