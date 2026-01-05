@@ -78,12 +78,51 @@ function getTeamsInDivision(teams, division) {
 }
 
 /**
- * Simulate remaining round-robin matches for all divisions
+ * Simulate remaining matches based on actual tournament schedule
  *
  * @param {Array} teams - Array of all 30 teams with current standings
- * @param {number} currentRound - Current round number (1-5)
- * @param {Array} completedMatches - Array of completed match IDs (e.g., ['1-2', '3-4'])
+ * @param {Array} remainingMatches - Array of remaining match objects from tournament data
  * @returns {Array} Updated teams array after simulation
+ */
+function simulateRemainingMatches(teams, remainingMatches) {
+  const teamsCopy = cloneTeams(teams);
+
+  // Simulate each remaining match
+  for (const match of remainingMatches) {
+    const team1 = teamsCopy.find(t => t.id === match.team1 || t.name === match.team1);
+    const team2 = teamsCopy.find(t => t.id === match.team2 || t.name === match.team2);
+
+    if (!team1 || !team2) {
+      console.warn(`Team not found in match: ${match.team1} vs ${match.team2}`);
+      continue;
+    }
+
+    // Simulate the match
+    const result = simulateMatch(team1, team2);
+
+    // Update team records
+    const team1Index = teamsCopy.findIndex(t => t.id === team1.id);
+    const team2Index = teamsCopy.findIndex(t => t.id === team2.id);
+
+    if (result.winner === team1.id) {
+      teamsCopy[team1Index].wins++;
+      teamsCopy[team1Index].matchPoints += result.team1Points;
+      teamsCopy[team2Index].losses++;
+      teamsCopy[team2Index].matchPoints += result.team2Points;
+    } else {
+      teamsCopy[team2Index].wins++;
+      teamsCopy[team2Index].matchPoints += result.team2Points;
+      teamsCopy[team1Index].losses++;
+      teamsCopy[team1Index].matchPoints += result.team1Points;
+    }
+  }
+
+  return teamsCopy;
+}
+
+/**
+ * Legacy function for backward compatibility - simulates round-robin matches
+ * @deprecated Use simulateRemainingMatches with actual tournament data instead
  */
 function simulateRoundRobin(teams, currentRound, completedMatches = []) {
   const teamsCopy = cloneTeams(teams);
@@ -208,7 +247,8 @@ function determineQualifiers(teams) {
  * @param {object} config - Configuration object
  * @param {Array} config.teams - Array of all 30 teams with current standings
  * @param {number} config.currentRound - Current round number (1-5)
- * @param {Array} config.completedMatches - Array of completed match IDs
+ * @param {Array} config.completedMatches - Array of completed match IDs (legacy, optional)
+ * @param {Array} config.remainingMatches - Array of remaining match objects from tournament data
  * @param {number} config.iterations - Number of simulations to run (default 10000)
  * @param {string} config.targetTeamId - ID of the team to track
  * @returns {object} Simulation results with probabilities
@@ -218,6 +258,7 @@ export function runSimulation(config) {
     teams,
     currentRound,
     completedMatches = [],
+    remainingMatches = null,
     iterations = 10000,
     targetTeamId,
   } = config;
@@ -233,14 +274,22 @@ export function runSimulation(config) {
 
   // Run simulations
   for (let i = 0; i < iterations; i++) {
-    const simulatedTeams = simulateRoundRobin(teams, currentRound, completedMatches);
+    let simulatedTeams;
+
+    // Use new match-based simulation if remainingMatches provided, otherwise fall back to legacy
+    if (remainingMatches && remainingMatches.length > 0) {
+      simulatedTeams = simulateRemainingMatches(teams, remainingMatches);
+    } else {
+      simulatedTeams = simulateRoundRobin(teams, currentRound, completedMatches);
+    }
+
     const { qualifiers, divisionalWinners, wildcards } = determineQualifiers(simulatedTeams);
 
-    // Find target team in results
-    const targetTeam = simulatedTeams.find(t => t.id === targetTeamId);
-    const isDivisionalWinner = divisionalWinners.find(w => w.id === targetTeamId) !== undefined;
-    const isWildcard = wildcards.find(w => w.id === targetTeamId) !== undefined;
-    const qualified = qualifiers.find(q => q.id === targetTeamId) !== undefined;
+    // Find target team in results (support both id and name)
+    const targetTeam = simulatedTeams.find(t => t.id === targetTeamId || t.name === targetTeamId);
+    const isDivisionalWinner = divisionalWinners.find(w => (w.id === targetTeamId || w.name === targetTeamId)) !== undefined;
+    const isWildcard = wildcards.find(w => (w.id === targetTeamId || w.name === targetTeamId)) !== undefined;
+    const qualified = qualifiers.find(q => (q.id === targetTeamId || q.name === targetTeamId)) !== undefined;
 
     if (isDivisionalWinner) results.divisionalWins++;
     if (isWildcard) results.wildcardBerths++;

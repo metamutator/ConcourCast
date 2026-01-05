@@ -1,232 +1,176 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { loadTournamentData, calculateStandings } from '../utils/tournamentData';
 
 function TeamInputForm({ onCalculate }) {
-  const [formData, setFormData] = useState({
-    teamName: '',
-    division: '1',
-    currentRound: '1',
-    wins: '0',
-    losses: '0',
-    matchPoints: '0',
-  });
+  const [tournamentData, setTournamentData] = useState(null);
+  const [standings, setStandings] = useState([]);
+  const [selectedTeam, setSelectedTeam] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+  useEffect(() => {
+    async function loadData() {
+      setLoading(true);
+      setError('');
+
+      const data = await loadTournamentData();
+
+      if (!data) {
+        setError('No tournament data found. Please use the Admin panel to upload tournament data.');
+        setLoading(false);
+        return;
+      }
+
+      setTournamentData(data);
+      const currentStandings = calculateStandings(data.teams, data.matches);
+      setStandings(currentStandings);
+      setLoading(false);
+    }
+
+    loadData();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate inputs
-    const wins = parseInt(formData.wins);
-    const losses = parseInt(formData.losses);
-    const currentRound = parseInt(formData.currentRound);
-    const matchPoints = parseInt(formData.matchPoints);
-
-    if (wins + losses > currentRound) {
-      alert('Total games played (wins + losses) cannot exceed current round number');
+    if (!selectedTeam) {
+      alert('Please select a team');
       return;
     }
 
-    if (wins < 0 || losses < 0 || matchPoints < 0) {
-      alert('All numbers must be non-negative');
+    const teamStanding = standings.find(s => s.name === selectedTeam);
+    if (!teamStanding) {
+      alert('Team not found');
       return;
     }
-
-    // For MVP: create a simple dataset
-    // In reality, we'd need all 30 teams' data, but for now we'll generate dummy data
-    const teams = generateDummyTeams(parseInt(formData.division), {
-      wins,
-      losses,
-      matchPoints,
-    });
 
     onCalculate({
-      teams,
-      currentRound,
-      targetTeamId: 'MY_TEAM',
-      teamName: formData.teamName || 'My Team',
+      teams: standings,
+      currentRound: tournamentData.tournament.currentRound,
+      targetTeamId: selectedTeam,
+      teamName: selectedTeam,
+      tournamentData: tournamentData,
     });
   };
 
+  if (loading) {
+    return (
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="text-center py-8">
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-900 mb-3"></div>
+          <p className="text-gray-600">Loading tournament data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !tournamentData) {
+    return (
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-yellow-800 mb-2">Tournament Data Not Found</h3>
+          <p className="text-yellow-700 mb-4">
+            {error || 'Unable to load tournament data. Please upload the tournament schedule and results using the Admin panel.'}
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Group teams by division for easier selection
+  const teamsByDivision = standings.reduce((acc, team) => {
+    if (!acc[team.division]) {
+      acc[team.division] = [];
+    }
+    acc[team.division].push(team);
+    return acc;
+  }, {});
+
+  // Sort teams within each division by match points
+  Object.keys(teamsByDivision).forEach(division => {
+    teamsByDivision[division].sort((a, b) => b.matchPoints - a.matchPoints);
+  });
+
+  const selectedTeamData = standings.find(s => s.name === selectedTeam);
+
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 space-y-4">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-        Enter Your Team's Standings
-      </h2>
-
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="flex justify-between items-start mb-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Team Name (optional)
-          </label>
-          <input
-            type="text"
-            name="teamName"
-            value={formData.teamName}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="e.g., Harvard Business School"
-          />
+          <h2 className="text-2xl font-semibold text-gray-800">
+            Select Your Team
+          </h2>
+          <p className="text-sm text-gray-500 mt-1">
+            Current Round: {tournamentData.tournament.currentRound} of {tournamentData.tournament.totalRounds}
+          </p>
         </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Division *
-          </label>
-          <select
-            name="division"
-            value={formData.division}
-            onChange={handleChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="1">Division 1</option>
-            <option value="2">Division 2</option>
-            <option value="3">Division 3</option>
-            <option value="4">Division 4</option>
-            <option value="5">Division 5</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Current Round *
-          </label>
-          <select
-            name="currentRound"
-            value={formData.currentRound}
-            onChange={handleChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="1">Round 1 (just started)</option>
-            <option value="2">Round 2</option>
-            <option value="3">Round 3</option>
-            <option value="4">Round 4</option>
-            <option value="5">Round 5 (final round)</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Match Points *
-          </label>
-          <input
-            type="number"
-            name="matchPoints"
-            value={formData.matchPoints}
-            onChange={handleChange}
-            required
-            min="0"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="e.g., 74"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Wins *
-          </label>
-          <input
-            type="number"
-            name="wins"
-            value={formData.wins}
-            onChange={handleChange}
-            required
-            min="0"
-            max="5"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="e.g., 2"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Losses *
-          </label>
-          <input
-            type="number"
-            name="losses"
-            value={formData.losses}
-            onChange={handleChange}
-            required
-            min="0"
-            max="5"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="e.g., 0"
-          />
+        <div className="text-right text-sm text-gray-500">
+          Last updated: {new Date(tournamentData.lastUpdated).toLocaleString()}
         </div>
       </div>
 
-      <div className="bg-blue-50 border border-blue-200 rounded-md p-4 text-sm text-blue-800">
-        <p className="font-medium mb-1">Note for MVP:</p>
-        <p>This simplified version assumes average performance for other teams in your division. For more accurate results, all 30 teams' data would be needed.</p>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Team *
+        </label>
+        <select
+          value={selectedTeam}
+          onChange={(e) => setSelectedTeam(e.target.value)}
+          required
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        >
+          <option value="">-- Select your team --</option>
+          {[1, 2, 3, 4, 5].map(division => (
+            <optgroup key={division} label={`Division ${division}`}>
+              {teamsByDivision[division]?.map(team => (
+                <option key={team.name} value={team.name}>
+                  {team.name} ({team.wins}-{team.losses}, {team.matchPoints} pts)
+                </option>
+              ))}
+            </optgroup>
+          ))}
+        </select>
       </div>
+
+      {selectedTeamData && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <h3 className="font-semibold text-blue-900 mb-2">Current Standing:</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+            <div>
+              <span className="text-blue-700">Division:</span>
+              <span className="ml-2 font-semibold text-blue-900">{selectedTeamData.division}</span>
+            </div>
+            <div>
+              <span className="text-blue-700">Record:</span>
+              <span className="ml-2 font-semibold text-blue-900">{selectedTeamData.wins}-{selectedTeamData.losses}</span>
+            </div>
+            <div>
+              <span className="text-blue-700">Match Points:</span>
+              <span className="ml-2 font-semibold text-blue-900">{selectedTeamData.matchPoints}</span>
+            </div>
+            <div>
+              <span className="text-blue-700">Games Played:</span>
+              <span className="ml-2 font-semibold text-blue-900">{selectedTeamData.gamesPlayed}</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       <button
         type="submit"
-        className="w-full bg-blue-900 text-white py-3 px-6 rounded-md font-semibold hover:bg-blue-800 transition-colors duration-200"
+        disabled={!selectedTeam}
+        className="w-full bg-blue-900 text-white py-3 px-6 rounded-md font-semibold hover:bg-blue-800 transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
       >
         Calculate My Chances
       </button>
     </form>
   );
-}
-
-/**
- * Generate dummy data for 30 teams (simplified for MVP)
- * In production, this would come from real tournament data
- */
-function generateDummyTeams(userDivision, userStats) {
-  const teams = [];
-
-  // Generate teams for all 5 divisions
-  for (let division = 1; division <= 5; division++) {
-    for (let teamNum = 1; teamNum <= 6; teamNum++) {
-      const isUserTeam = division === userDivision && teamNum === 1;
-
-      if (isUserTeam) {
-        // User's team
-        teams.push({
-          id: 'MY_TEAM',
-          name: 'My Team',
-          division,
-          wins: userStats.wins,
-          losses: userStats.losses,
-          matchPoints: userStats.matchPoints,
-        });
-      } else {
-        // Generate realistic stats for other teams
-        // Average team: ~2.5 wins, ~2.5 losses per 5 games
-        // Match points: typically 36-40 per win, 3-15 per loss
-        // So ~2.5 wins × 37 avg + 2.5 losses × 8 avg = ~110 points after 5 rounds
-
-        const randomWins = Math.floor(Math.random() * 3); // 0-2 wins so far (conservative)
-        const randomLosses = Math.floor(Math.random() * 3); // 0-2 losses so far
-        const avgPointsPerWin = 36 + Math.random() * 4; // 36-40
-        const avgPointsPerLoss = 3 + Math.random() * 12; // 3-15
-        const randomMatchPoints = Math.floor(
-          randomWins * avgPointsPerWin + randomLosses * avgPointsPerLoss
-        );
-
-        teams.push({
-          id: `D${division}T${teamNum}`,
-          name: `Division ${division} Team ${teamNum}`,
-          division,
-          wins: randomWins,
-          losses: randomLosses,
-          matchPoints: randomMatchPoints,
-        });
-      }
-    }
-  }
-
-  return teams;
 }
 
 export default TeamInputForm;
