@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-05T19:16:21.713Z",
+  "lastUpdated": "2026-01-05T19:33:33.725Z",
   "tournament": {
     "name": "John Molson MBA International Case Competition 2026",
     "totalRounds": 5,
@@ -8,123 +8,123 @@
   "teams": [
     {
       "name": "ESG UQAM",
-      "division": null
+      "division": 5
     },
     {
       "name": "JMSB",
-      "division": null
+      "division": 5
     },
     {
       "name": "Lund",
-      "division": null
+      "division": 5
     },
     {
       "name": "Rotman",
-      "division": null
+      "division": 5
     },
     {
       "name": "TUD",
-      "division": null
+      "division": 5
     },
     {
       "name": "Glasgow",
-      "division": null
+      "division": 5
     },
     {
       "name": "SMU",
-      "division": null
+      "division": 3
     },
     {
       "name": "Asper",
-      "division": null
+      "division": 3
     },
     {
       "name": "Ben Gurion",
-      "division": null
+      "division": 3
     },
     {
       "name": "Corvinus",
-      "division": null
+      "division": 3
     },
     {
       "name": "HHU",
-      "division": null
+      "division": 3
     },
     {
       "name": "Alberta",
-      "division": null
+      "division": 3
     },
     {
       "name": "Nanyang",
-      "division": null
+      "division": 4
     },
     {
       "name": "Team Canada",
-      "division": null
+      "division": 4
     },
     {
       "name": "Toronto",
-      "division": null
+      "division": 4
     },
     {
       "name": "South Carolina",
-      "division": null
+      "division": 4
     },
     {
       "name": "Munich",
-      "division": null
+      "division": 4
     },
     {
       "name": "Tefler",
-      "division": null
+      "division": 4
     },
     {
       "name": "Barna",
-      "division": null
+      "division": 1
     },
     {
       "name": "Laval",
-      "division": null
+      "division": 1
     },
     {
       "name": "HEC",
-      "division": null
+      "division": 1
     },
     {
       "name": "McMaster",
-      "division": null
+      "division": 1
     },
     {
       "name": "Narsee Monjee",
-      "division": null
+      "division": 1
     },
     {
       "name": "Munster",
-      "division": null
+      "division": 1
     },
     {
       "name": "Western Colorado",
-      "division": null
+      "division": 2
     },
     {
       "name": "Kaiserslautern",
-      "division": null
+      "division": 2
     },
     {
       "name": "York",
-      "division": null
+      "division": 2
     },
     {
       "name": "UNSW",
-      "division": null
+      "division": 2
     },
     {
       "name": "Team Global",
-      "division": null
+      "division": 2
     },
     {
       "name": "Haskayne",
-      "division": null
+      "division": 2
     }
   ],
   "matches": [
