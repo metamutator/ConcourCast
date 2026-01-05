@@ -34,6 +34,21 @@ export default function AdminPanel() {
         }
         const scheduleData = XLSX.utils.sheet_to_json(scheduleSheet);
 
+        // Helper function to convert division (handles both letters A-E and numbers 1-5)
+        const parseDivision = (div) => {
+          if (typeof div === 'string') {
+            const upper = div.toUpperCase();
+            if (upper === 'A') return 1;
+            if (upper === 'B') return 2;
+            if (upper === 'C') return 3;
+            if (upper === 'D') return 4;
+            if (upper === 'E') return 5;
+          }
+          const num = parseInt(div);
+          if (num >= 1 && num <= 5) return num;
+          throw new Error(`Invalid division: ${div}. Must be A-E or 1-5`);
+        };
+
         // Filter out empty rows and validate team data
         const teams = teamsData
           .filter(row => row.TeamName || row.Division) // Skip completely empty rows
@@ -43,7 +58,7 @@ export default function AdminPanel() {
             }
             return {
               name: row.TeamName,
-              division: parseInt(row.Division)
+              division: parseDivision(row.Division)
             };
           });
 
@@ -218,11 +233,11 @@ export default function AdminPanel() {
                 <tbody>
                   <tr>
                     <td className="border border-gray-300 px-2 py-1">Team A</td>
-                    <td className="border border-gray-300 px-2 py-1">1</td>
+                    <td className="border border-gray-300 px-2 py-1">A or 1</td>
                   </tr>
                   <tr>
                     <td className="border border-gray-300 px-2 py-1">Team B</td>
-                    <td className="border border-gray-300 px-2 py-1">1</td>
+                    <td className="border border-gray-300 px-2 py-1">A or 1</td>
                   </tr>
                   <tr>
                     <td className="border border-gray-300 px-2 py-1">...</td>
@@ -230,6 +245,7 @@ export default function AdminPanel() {
                   </tr>
                 </tbody>
               </table>
+              <p className="text-xs text-gray-600 mt-2">Division can be A-E or 1-5</p>
             </div>
 
             <div className="bg-gray-50 rounded-lg p-4">
