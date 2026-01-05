@@ -101,6 +101,18 @@ export default function AdminPanel() {
     alert('JSON copied to clipboard!');
   };
 
+  const downloadJson = () => {
+    const blob = new Blob([jsonOutput], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'tournament-data.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="bg-white rounded-lg shadow-lg p-8">
@@ -149,12 +161,20 @@ export default function AdminPanel() {
 
             <div className="flex justify-between items-center">
               <h3 className="text-lg font-semibold text-gray-800">Generated JSON:</h3>
-              <button
-                onClick={copyToClipboard}
-                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-              >
-                📋 Copy to Clipboard
-              </button>
+              <div className="flex gap-3">
+                <button
+                  onClick={downloadJson}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                >
+                  💾 Download JSON
+                </button>
+                <button
+                  onClick={copyToClipboard}
+                  className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                >
+                  📋 Copy to Clipboard
+                </button>
+              </div>
             </div>
 
             <div className="bg-gray-50 border border-gray-300 rounded-lg p-4 overflow-auto max-h-96">
@@ -166,12 +186,14 @@ export default function AdminPanel() {
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
               <p className="text-blue-800 font-medium mb-2">📝 Next Steps:</p>
               <ol className="list-decimal list-inside text-blue-700 space-y-1">
-                <li>Copy the JSON above (use the button)</li>
-                <li>Open <code className="bg-blue-100 px-1 rounded">public/tournament-data.json</code> in your code editor</li>
-                <li>Replace the entire file contents with the copied JSON</li>
+                <li>Click <strong>"Download JSON"</strong> button above</li>
+                <li>Move the downloaded file to replace <code className="bg-blue-100 px-1 rounded">public/tournament-data.json</code> in your project</li>
                 <li>Commit and push to git: <code className="bg-blue-100 px-1 rounded">git add . && git commit -m "Update tournament data" && git push</code></li>
                 <li>Vercel will auto-deploy in ~60 seconds</li>
               </ol>
+              <p className="text-blue-600 text-sm mt-2">
+                💡 Tip: You can also use "Copy to Clipboard" if you prefer to paste the JSON manually
+              </p>
             </div>
           </div>
         )}
