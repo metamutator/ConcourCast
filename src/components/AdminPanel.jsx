@@ -49,12 +49,22 @@ export default function AdminPanel() {
           throw new Error(`Invalid division: ${div}. Must be A-E or 1-5`);
         };
 
+        // Debug: Log first row to see column names
+        if (teamsData.length > 0) {
+          console.log('First team row keys:', Object.keys(teamsData[0]));
+          console.log('First team row:', teamsData[0]);
+        }
+
         // Filter out empty rows and validate team data
         const teams = teamsData
           .filter(row => row.TeamName || row.Division) // Skip completely empty rows
           .map((row, index) => {
-            if (!row.TeamName || !row.Division) {
-              throw new Error(`Invalid team data at row ${index + 2} in Teams sheet`);
+            if (!row.TeamName) {
+              throw new Error(`Missing TeamName at row ${index + 2} in Teams sheet`);
+            }
+            if (!row.Division && row.Division !== 0) {
+              console.error(`Row ${index + 2}:`, row);
+              throw new Error(`Missing Division at row ${index + 2} in Teams sheet. Found keys: ${Object.keys(row).join(', ')}`);
             }
             return {
               name: row.TeamName,
