@@ -1,137 +1,636 @@
 {
-  "lastUpdated": "2026-01-05T12:00:00Z",
+  "lastUpdated": "2026-01-05T19:10:38.380Z",
   "tournament": {
     "name": "John Molson MBA International Case Competition 2026",
     "totalRounds": 5,
-    "currentRound": 1
+    "currentRound": 0
   },
   "teams": [
-    {"name": "Team A", "division": 1},
-    {"name": "Team B", "division": 1},
-    {"name": "Team C", "division": 1},
-    {"name": "Team D", "division": 1},
-    {"name": "Team E", "division": 1},
-    {"name": "Team F", "division": 1},
-    {"name": "Team G", "division": 2},
-    {"name": "Team H", "division": 2},
-    {"name": "Team I", "division": 2},
-    {"name": "Team J", "division": 2},
-    {"name": "Team K", "division": 2},
-    {"name": "Team L", "division": 2},
-    {"name": "Team M", "division": 3},
-    {"name": "Team N", "division": 3},
-    {"name": "Team O", "division": 3},
-    {"name": "Team P", "division": 3},
-    {"name": "Team Q", "division": 3},
-    {"name": "Team R", "division": 3},
-    {"name": "Team S", "division": 4},
-    {"name": "Team T", "division": 4},
-    {"name": "Team U", "division": 4},
-    {"name": "Team V", "division": 4},
-    {"name": "Team W", "division": 4},
-    {"name": "Team X", "division": 4},
-    {"name": "Team Y", "division": 5},
-    {"name": "Team Z", "division": 5},
-    {"name": "Team AA", "division": 5},
-    {"name": "Team AB", "division": 5},
-    {"name": "Team AC", "division": 5},
-    {"name": "Team AD", "division": 5}
+    {
+      "name": "ESG UQAM",
+      "division": null
+    },
+    {
+      "name": "JMSB",
+      "division": null
+    },
+    {
+      "name": "Lund",
+      "division": null
+    },
+    {
+      "name": "Rotman",
+      "division": null
+    },
+    {
+      "name": "TUD",
+      "division": null
+    },
+    {
+      "name": "Glasgow",
+      "division": null
+    },
+    {
+      "name": "SMU",
+      "division": null
+    },
+    {
+      "name": "Asper",
+      "division": null
+    },
+    {
+      "name": "Ben Gurion",
+      "division": null
+    },
+    {
+      "name": "Corvinus",
+      "division": null
+    },
+    {
+      "name": "HHU",
+      "division": null
+    },
+    {
+      "name": "Alberta",
+      "division": null
+    },
+    {
+      "name": "Nanyang",
+      "division": null
+    },
+    {
+      "name": "Team Canada",
+      "division": null
+    },
+    {
+      "name": "Toronto",
+      "division": null
+    },
+    {
+      "name": "South Carolina",
+      "division": null
+    },
+    {
+      "name": "Munich",
+      "division": null
+    },
+    {
+      "name": "Tefler",
+      "division": null
+    },
+    {
+      "name": "Barna",
+      "division": null
+    },
+    {
+      "name": "Laval",
+      "division": null
+    },
+    {
+      "name": "HEC",
+      "division": null
+    },
+    {
+      "name": "McMaster",
+      "division": null
+    },
+    {
+      "name": "Narsee Monjee",
+      "division": null
+    },
+    {
+      "name": "Munster",
+      "division": null
+    },
+    {
+      "name": "Western Colorado",
+      "division": null
+    },
+    {
+      "name": "Kaiserslautern",
+      "division": null
+    },
+    {
+      "name": "York",
+      "division": null
+    },
+    {
+      "name": "UNSW",
+      "division": null
+    },
+    {
+      "name": "Team Global",
+      "division": null
+    },
+    {
+      "name": "Haskayne",
+      "division": null
+    }
   ],
   "matches": [
-    {"round": 1, "team1": "Team A", "team2": "Team B", "team1Score": 85, "team2Score": 78},
-    {"round": 1, "team1": "Team C", "team2": "Team D", "team1Score": 92, "team2Score": 87},
-    {"round": 1, "team1": "Team E", "team2": "Team F", "team1Score": 75, "team2Score": 90},
-    {"round": 1, "team1": "Team G", "team2": "Team H", "team1Score": 88, "team2Score": 82},
-    {"round": 1, "team1": "Team I", "team2": "Team J", "team1Score": 95, "team2Score": 70},
-    {"round": 1, "team1": "Team K", "team2": "Team L", "team1Score": null, "team2Score": null},
-    {"round": 1, "team1": "Team M", "team2": "Team N", "team1Score": null, "team2Score": null},
-    {"round": 1, "team1": "Team O", "team2": "Team P", "team1Score": null, "team2Score": null},
-    {"round": 1, "team1": "Team Q", "team2": "Team R", "team1Score": null, "team2Score": null},
-    {"round": 1, "team1": "Team S", "team2": "Team T", "team1Score": null, "team2Score": null},
-    {"round": 1, "team1": "Team U", "team2": "Team V", "team1Score": null, "team2Score": null},
-    {"round": 1, "team1": "Team W", "team2": "Team X", "team1Score": null, "team2Score": null},
-    {"round": 1, "team1": "Team Y", "team2": "Team Z", "team1Score": null, "team2Score": null},
-    {"round": 1, "team1": "Team AA", "team2": "Team AB", "team1Score": null, "team2Score": null},
-    {"round": 1, "team1": "Team AC", "team2": "Team AD", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team A", "team2": "Team C", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team B", "team2": "Team D", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team E", "team2": "Team A", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team F", "team2": "Team B", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team G", "team2": "Team I", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team H", "team2": "Team J", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team K", "team2": "Team G", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team L", "team2": "Team H", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team M", "team2": "Team O", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team N", "team2": "Team P", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team Q", "team2": "Team M", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team R", "team2": "Team N", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team S", "team2": "Team U", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team T", "team2": "Team V", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team W", "team2": "Team S", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team X", "team2": "Team T", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team Y", "team2": "Team AA", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team Z", "team2": "Team AB", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team AC", "team2": "Team Y", "team1Score": null, "team2Score": null},
-    {"round": 2, "team1": "Team AD", "team2": "Team Z", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team A", "team2": "Team D", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team B", "team2": "Team C", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team E", "team2": "Team B", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team F", "team2": "Team C", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team G", "team2": "Team J", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team H", "team2": "Team I", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team K", "team2": "Team H", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team L", "team2": "Team I", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team M", "team2": "Team P", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team N", "team2": "Team O", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team Q", "team2": "Team N", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team R", "team2": "Team O", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team S", "team2": "Team V", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team T", "team2": "Team U", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team W", "team2": "Team T", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team X", "team2": "Team U", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team Y", "team2": "Team AB", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team Z", "team2": "Team AA", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team AC", "team2": "Team Z", "team1Score": null, "team2Score": null},
-    {"round": 3, "team1": "Team AD", "team2": "Team AA", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team A", "team2": "Team E", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team B", "team2": "Team F", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team C", "team2": "Team E", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team D", "team2": "Team F", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team G", "team2": "Team K", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team H", "team2": "Team L", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team I", "team2": "Team K", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team J", "team2": "Team L", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team M", "team2": "Team Q", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team N", "team2": "Team R", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team O", "team2": "Team Q", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team P", "team2": "Team R", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team S", "team2": "Team W", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team T", "team2": "Team X", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team U", "team2": "Team W", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team V", "team2": "Team X", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team Y", "team2": "Team AC", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team Z", "team2": "Team AD", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team AA", "team2": "Team AC", "team1Score": null, "team2Score": null},
-    {"round": 4, "team1": "Team AB", "team2": "Team AD", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team A", "team2": "Team F", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team B", "team2": "Team E", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team C", "team2": "Team F", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team D", "team2": "Team E", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team G", "team2": "Team L", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team H", "team2": "Team K", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team I", "team2": "Team L", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team J", "team2": "Team K", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team M", "team2": "Team R", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team N", "team2": "Team Q", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team O", "team2": "Team R", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team P", "team2": "Team Q", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team S", "team2": "Team X", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team T", "team2": "Team W", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team U", "team2": "Team X", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team V", "team2": "Team W", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team Y", "team2": "Team AD", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team Z", "team2": "Team AC", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team AA", "team2": "Team AD", "team1Score": null, "team2Score": null},
-    {"round": 5, "team1": "Team AB", "team2": "Team AC", "team1Score": null, "team2Score": null}
+    {
+      "round": 1,
+      "team1": "Laval",
+      "team2": "Munster",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 1,
+      "team1": "McMaster",
+      "team2": "Narsee Monjee",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 1,
+      "team1": "HEC",
+      "team2": "Barna",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 1,
+      "team1": "Kaiserslautern",
+      "team2": "UNSW",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 1,
+      "team1": "Western Colorado",
+      "team2": "Team Global",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 1,
+      "team1": "York",
+      "team2": "Haskayne",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 1,
+      "team1": "HHU",
+      "team2": "SMU",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 1,
+      "team1": "Alberta",
+      "team2": "Asper",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 1,
+      "team1": "Corvinus",
+      "team2": "Ben Gurion",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 1,
+      "team1": "Nanyang",
+      "team2": "Team Canada",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 1,
+      "team1": "Tefler",
+      "team2": "Toronto",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 1,
+      "team1": "Munich",
+      "team2": "South Carolina",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 1,
+      "team1": "Glasgow",
+      "team2": "TUD",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 1,
+      "team1": "Lund",
+      "team2": "JMSB",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 1,
+      "team1": "ESG UQAM",
+      "team2": "Rotman",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 2,
+      "team1": "McMaster",
+      "team2": "Laval",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 2,
+      "team1": "Narsee Monjee",
+      "team2": "HEC",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 2,
+      "team1": "Barna",
+      "team2": "Munster",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 2,
+      "team1": "Western Colorado",
+      "team2": "Kaiserslautern",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 2,
+      "team1": "Team Global",
+      "team2": "York",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 2,
+      "team1": "Haskayne",
+      "team2": "UNSW",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 2,
+      "team1": "Alberta",
+      "team2": "HHU",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 2,
+      "team1": "Asper",
+      "team2": "Corvinus",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 2,
+      "team1": "Ben Gurion",
+      "team2": "SMU",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 2,
+      "team1": "Tefler",
+      "team2": "Nanyang",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 2,
+      "team1": "Toronto",
+      "team2": "Munich",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 2,
+      "team1": "South Carolina",
+      "team2": "Team Canada",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 3,
+      "team1": "Laval",
+      "team2": "Barna",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 3,
+      "team1": "McMaster",
+      "team2": "HEC",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 3,
+      "team1": "Munich",
+      "team2": "Narsee Monjee",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 3,
+      "team1": "Kaiserslautern",
+      "team2": "Haskayne",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 3,
+      "team1": "Western Colorado",
+      "team2": "York",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 3,
+      "team1": "UNSW",
+      "team2": "Team Global",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 3,
+      "team1": "HHU",
+      "team2": "Ben Gurion",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 3,
+      "team1": "Alberta",
+      "team2": "Corvinus",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 3,
+      "team1": "SMU",
+      "team2": "Asper",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 3,
+      "team1": "Nanyang",
+      "team2": "South Carolina",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 3,
+      "team1": "Tefler",
+      "team2": "Munich",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 3,
+      "team1": "Team Canada",
+      "team2": "Toronto",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 3,
+      "team1": "Glasgow",
+      "team2": "Rotman",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 3,
+      "team1": "Lund",
+      "team2": "ESG UQAM",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 3,
+      "team1": "TUD",
+      "team2": "JMSB",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 4,
+      "team1": "Narsee Monjee",
+      "team2": "Laval",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 4,
+      "team1": "Barna",
+      "team2": "McMaster",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 4,
+      "team1": "HEC",
+      "team2": "Munich",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 4,
+      "team1": "Team Global",
+      "team2": "Kaiserslautern",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 4,
+      "team1": "Haskayne",
+      "team2": "Western Colorado",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 4,
+      "team1": "York",
+      "team2": "UNSW",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 4,
+      "team1": "Asper",
+      "team2": "HHU",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 4,
+      "team1": "Ben Gurion",
+      "team2": "Alberta",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 4,
+      "team1": "Corvinus",
+      "team2": "SMU",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 4,
+      "team1": "Toronto",
+      "team2": "Nanyang",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 4,
+      "team1": "South Carolina",
+      "team2": "Tefler",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 4,
+      "team1": "Munich",
+      "team2": "Team Canada",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 4,
+      "team1": "JMSB",
+      "team2": "Glasgow",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 4,
+      "team1": "Rotman",
+      "team2": "Lund",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 4,
+      "team1": "ESG UQAM",
+      "team2": "TUD",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 5,
+      "team1": "HEC",
+      "team2": "Laval",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 5,
+      "team1": "Munster",
+      "team2": "McMaster",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 5,
+      "team1": "Barna",
+      "team2": "Narsee Monjee",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 5,
+      "team1": "York",
+      "team2": "Kaiserslautern",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 5,
+      "team1": "UNSW",
+      "team2": "Western Colorado",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 5,
+      "team1": "Haskayne",
+      "team2": "Team Global",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 5,
+      "team1": "Corvinus",
+      "team2": "HHU",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 5,
+      "team1": "SMU",
+      "team2": "Alberta",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 5,
+      "team1": "Ben Gurion",
+      "team2": "Asper",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 5,
+      "team1": "Munich",
+      "team2": "Nanyang",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 5,
+      "team1": "Team Canada",
+      "team2": "Tefler",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 5,
+      "team1": "South Carolina",
+      "team2": "Toronto",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 5,
+      "team1": "ESG UQAM",
+      "team2": "Glasgow",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 5,
+      "team1": "TUD",
+      "team2": "Lund",
+      "team1Score": null,
+      "team2Score": null
+    },
+    {
+      "round": 5,
+      "team1": "Rotman",
+      "team2": "JMSB",
+      "team1Score": null,
+      "team2Score": null
+    }
   ]
 }
