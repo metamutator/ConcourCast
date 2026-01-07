@@ -34,7 +34,11 @@ export default function AdminPanel() {
         }
         const scheduleData = XLSX.utils.sheet_to_json(scheduleSheet);
 
-        // Helper function to convert division (handles both letters A-E and numbers 1-5)
+        // Helper functions
+        const normalizeName = (name) =>
+          typeof name === 'string' ? name.trim() : name;
+
+        // Convert division (handles both letters A-E and numbers 1-5)
         const parseDivision = (div) => {
           if (typeof div === 'string') {
             const upper = div.toUpperCase();
@@ -66,11 +70,16 @@ export default function AdminPanel() {
               console.error(`Row ${index + 2}:`, row);
               throw new Error(`Missing Division at row ${index + 2} in Teams sheet. Found keys: ${Object.keys(row).join(', ')}`);
             }
+            const name = normalizeName(row.TeamName);
+
             return {
-              name: row.TeamName,
+              name,
               division: parseDivision(row.Division)
             };
           });
+
+        // Build a quick lookup for team validation
+        const teamSet = new Set(teams.map(t => t.name));
 
         // Filter out empty rows and validate match data
         const matches = scheduleData
@@ -79,10 +88,22 @@ export default function AdminPanel() {
             if (!row.Round || !row.Team1 || !row.Team2) {
               throw new Error(`Invalid match data at row ${index + 2} in Schedule sheet`);
             }
+
+            const team1 = normalizeName(row.Team1);
+            const team2 = normalizeName(row.Team2);
+
+            // Validate team names exist in Teams sheet
+            if (!teamSet.has(team1)) {
+              throw new Error(`Unknown Team1 "${row.Team1}" at row ${index + 2} in Schedule sheet (not found in Teams sheet)`);
+            }
+            if (!teamSet.has(team2)) {
+              throw new Error(`Unknown Team2 "${row.Team2}" at row ${index + 2} in Schedule sheet (not found in Teams sheet)`);
+            }
+
             return {
               round: parseInt(row.Round),
-              team1: row.Team1,
-              team2: row.Team2,
+              team1,
+              team2,
               team1Score: row.Team1Score !== undefined && row.Team1Score !== '' && row.Team1Score !== null
                 ? parseFloat(row.Team1Score)
                 : null,
@@ -91,6 +112,21 @@ export default function AdminPanel() {
                 : null
             };
           });
+
+        // Validate no team appears in more than one match per round
+        const roundTeamKeySeen = new Set();
+        const duplicateEntries = [];
+        matches.forEach(match => {
+          const k1 = `${match.round}|${match.team1}`;
+          const k2 = `${match.round}|${match.team2}`;
+          if (roundTeamKeySeen.has(k1)) duplicateEntries.push(k1);
+          if (roundTeamKeySeen.has(k2)) duplicateEntries.push(k2);
+          roundTeamKeySeen.add(k1);
+          roundTeamKeySeen.add(k2);
+        });
+        if (duplicateEntries.length > 0) {
+          throw new Error(`Duplicate matches detected for the same team in a round: ${[...new Set(duplicateEntries)].join(', ')}`);
+        }
 
         // Determine current round (highest round with at least one completed match)
         let currentRound = 0;
