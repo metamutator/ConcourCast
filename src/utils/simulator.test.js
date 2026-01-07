@@ -8,17 +8,17 @@ export function testMatchPoints() {
   console.log('=== Testing Match Points Calculation ===\n');
 
   const testCases = [
-    { diff: 2, expected: { winner: 26, loser: 15 } },
-    { diff: 5, expected: { winner: 37, loser: 4 } },
-    { diff: 15, expected: { winner: 38, loser: 3 } },
-    { diff: 30, expected: { winner: 39, loser: 2 } },
-    { diff: 40, expected: { winner: 40, loser: 1 } },
+    { winScore: 6, loseScore: 5, expected: { winner: 26, loser: 15 } },
+    { winScore: 7, loseScore: 4, expected: { winner: 37, loser: 4 } },
+    { winScore: 8, loseScore: 3, expected: { winner: 38, loser: 3 } },
+    { winScore: 9, loseScore: 2, expected: { winner: 39, loser: 2 } },
+    { winScore: 10, loseScore: 1, expected: { winner: 40, loser: 1 } },
   ];
 
-  testCases.forEach(({ diff, expected }) => {
-    const result = calculateMatchPoints(diff);
-    const desc = getMatchPointDescription(diff);
-    console.log(`Differential ${diff}: ${desc}`);
+  testCases.forEach(({ winScore, loseScore, expected }) => {
+    const result = calculateMatchPoints(winScore, loseScore);
+    const desc = getMatchPointDescription(winScore, loseScore);
+    console.log(`Score ${winScore}-${loseScore}: ${desc}`);
     console.log(`  Expected: W=${expected.winner}, L=${expected.loser}`);
     console.log(`  Got: W=${result.winnerPoints}, L=${result.loserPoints}`);
     console.log(`  ✓ ${result.winnerPoints === expected.winner && result.loserPoints === expected.loser ? 'PASS' : 'FAIL'}\n`);

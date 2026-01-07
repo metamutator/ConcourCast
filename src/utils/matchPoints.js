@@ -1,55 +1,39 @@
 /**
- * Calculate match points for both teams based on score differential
+ * Calculate match points for both teams based on their scores and differential
  *
  * Rules from competition:
- * - Differential <3: 6-5 split + 20 bonus to winner, 10 to loser
- * - Differential 3-10: 7-4 split + 30 bonus to winner
- * - Differential 11-20: 8-3 split + 30 bonus to winner
- * - Differential 21-35: 9-2 split + 30 bonus to winner
- * - Differential ≥36: 10-1 split + 30 bonus to winner
+ * - Base points = the team's actual game score
+ * - Bonus points awarded to winner based on differential:
+ *   - Differential <3: Winner +20, Loser +10
+ *   - Differential 3-10: Winner +30, Loser +0
+ *   - Differential 11-20: Winner +30, Loser +0
+ *   - Differential 21-35: Winner +30, Loser +0
+ *   - Differential ≥36: Winner +30, Loser +0
  *
- * @param {number} differential - Score differential (positive = team A wins)
+ * @param {number} winnerScore - The winner's game score
+ * @param {number} loserScore - The loser's game score
  * @returns {object} { winnerPoints, loserPoints, split }
  */
-export function calculateMatchPoints(differential) {
-  const absDiff = Math.abs(differential);
+export function calculateMatchPoints(winnerScore, loserScore) {
+  const differential = Math.abs(winnerScore - loserScore);
 
-  let winnerBase, loserBase, winnerBonus, loserBonus;
+  let winnerBonus, loserBonus;
 
-  if (absDiff < 3) {
-    winnerBase = 6;
-    loserBase = 5;
+  if (differential < 3) {
     winnerBonus = 20;
     loserBonus = 10;
-  } else if (absDiff <= 10) {
-    winnerBase = 7;
-    loserBase = 4;
-    winnerBonus = 30;
-    loserBonus = 0;
-  } else if (absDiff <= 20) {
-    winnerBase = 8;
-    loserBase = 3;
-    winnerBonus = 30;
-    loserBonus = 0;
-  } else if (absDiff <= 35) {
-    winnerBase = 9;
-    loserBase = 2;
-    winnerBonus = 30;
-    loserBonus = 0;
   } else {
-    winnerBase = 10;
-    loserBase = 1;
     winnerBonus = 30;
     loserBonus = 0;
   }
 
-  const winnerPoints = winnerBase + winnerBonus;
-  const loserPoints = loserBase + loserBonus;
+  const winnerPoints = winnerScore + winnerBonus;
+  const loserPoints = loserScore + loserBonus;
 
   return {
     winnerPoints,
     loserPoints,
-    split: `${winnerBase}-${loserBase}`,
+    split: `${winnerScore}-${loserScore}`,
     winnerBonus,
     loserBonus,
   };
@@ -58,11 +42,12 @@ export function calculateMatchPoints(differential) {
 /**
  * Get a human-readable description of the match point allocation
  *
- * @param {number} differential - Score differential
+ * @param {number} winnerScore - The winner's game score
+ * @param {number} loserScore - The loser's game score
  * @returns {string} Description like "8-3 split + 30 bonus = 38 vs 3 points"
  */
-export function getMatchPointDescription(differential) {
-  const { winnerPoints, loserPoints, split, winnerBonus, loserBonus } = calculateMatchPoints(differential);
+export function getMatchPointDescription(winnerScore, loserScore) {
+  const { winnerPoints, loserPoints, split, winnerBonus, loserBonus } = calculateMatchPoints(winnerScore, loserScore);
 
   if (loserBonus > 0) {
     return `${split} split + ${winnerBonus} bonus to winner, ${loserBonus} to loser = ${winnerPoints} vs ${loserPoints} points`;
@@ -78,10 +63,7 @@ export function getMatchPointDescription(differential) {
  */
 export function getMatchPointThresholds() {
   return [
-    { range: '<3', winnerBase: 6, loserBase: 5, winnerBonus: 20, loserBonus: 10, winnerTotal: 26, loserTotal: 15 },
-    { range: '3-10', winnerBase: 7, loserBase: 4, winnerBonus: 30, loserBonus: 0, winnerTotal: 37, loserTotal: 4 },
-    { range: '11-20', winnerBase: 8, loserBase: 3, winnerBonus: 30, loserBonus: 0, winnerTotal: 38, loserTotal: 3 },
-    { range: '21-35', winnerBase: 9, loserBase: 2, winnerBonus: 30, loserBonus: 0, winnerTotal: 39, loserTotal: 2 },
-    { range: '≥36', winnerBase: 10, loserBase: 1, winnerBonus: 30, loserBonus: 0, winnerTotal: 40, loserTotal: 1 },
+    { range: '<3', bonusWinner: 20, bonusLoser: 10, example: '6-5 + bonuses = 26 vs 15' },
+    { range: '3+', bonusWinner: 30, bonusLoser: 0, example: '8-3 + bonuses = 38 vs 3' },
   ];
 }

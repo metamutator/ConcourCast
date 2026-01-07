@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-01-07T04:37:43.937Z",
+  "lastUpdated": "2026-01-07T22:12:32.665Z",
   "tournament": {
     "name": "John Molson MBA International Case Competition 2026",
     "totalRounds": 5,
-    "currentRound": 2
+    "currentRound": 3
   },
   "teams": [
     {
@@ -342,106 +342,106 @@
       "round": 3,
       "team1": "Laval",
       "team2": "Barna",
-      "team1Score": null,
-      "team2Score": null
+      "team1Score": 7,
+      "team2Score": 4
     },
     {
       "round": 3,
       "team1": "McMaster",
       "team2": "HEC",
-      "team1Score": null,
-      "team2Score": null
+      "team1Score": 3,
+      "team2Score": 8
     },
     {
       "round": 3,
       "team1": "Munich",
       "team2": "Narsee Monjee",
-      "team1Score": null,
-      "team2Score": null
+      "team1Score": 9,
+      "team2Score": 2
     },
     {
       "round": 3,
       "team1": "Kaiserslautern",
       "team2": "Haskayne",
-      "team1Score": null,
-      "team2Score": null
+      "team1Score": 7,
+      "team2Score": 4
     },
     {
       "round": 3,
       "team1": "Western Colorado",
       "team2": "York",
-      "team1Score": null,
-      "team2Score": null
+      "team1Score": 7,
+      "team2Score": 4
     },
     {
       "round": 3,
       "team1": "UNSW",
       "team2": "Team Global",
-      "team1Score": null,
-      "team2Score": null
+      "team1Score": 6,
+      "team2Score": 5
     },
     {
       "round": 3,
       "team1": "HHU",
       "team2": "Ben Gurion",
-      "team1Score": null,
-      "team2Score": null
+      "team1Score": 9,
+      "team2Score": 2
     },
     {
       "round": 3,
       "team1": "Alberta",
       "team2": "Corvinus",
-      "team1Score": null,
-      "team2Score": null
+      "team1Score": 4,
+      "team2Score": 7
     },
     {
       "round": 3,
       "team1": "SMU",
       "team2": "Asper",
-      "team1Score": null,
-      "team2Score": null
+      "team1Score": 0,
+      "team2Score": 11
     },
     {
       "round": 3,
       "team1": "Nanyang",
       "team2": "South Carolina",
-      "team1Score": null,
-      "team2Score": null
+      "team1Score": 7,
+      "team2Score": 4
     },
     {
       "round": 3,
       "team1": "Tefler",
       "team2": "Munich",
-      "team1Score": null,
-      "team2Score": null
+      "team1Score": 3,
+      "team2Score": 8
     },
     {
       "round": 3,
       "team1": "Team Canada",
       "team2": "Toronto",
-      "team1Score": null,
-      "team2Score": null
+      "team1Score": 9,
+      "team2Score": 2
     },
     {
       "round": 3,
       "team1": "Glasgow",
       "team2": "Rotman",
-      "team1Score": null,
-      "team2Score": null
+      "team1Score": 4,
+      "team2Score": 7
     },
     {
       "round": 3,
       "team1": "Lund",
       "team2": "ESG UQAM",
-      "team1Score": null,
-      "team2Score": null
+      "team1Score": 5,
+      "team2Score": 6
     },
     {
       "round": 3,
       "team1": "TUD",
       "team2": "JMSB",
-      "team1Score": null,
-      "team2Score": null
+      "team1Score": 9,
+      "team2Score": 2
     },
     {
       "round": 4,

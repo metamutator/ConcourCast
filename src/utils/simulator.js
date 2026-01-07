@@ -28,7 +28,28 @@ function generateScoreDifferential() {
 function simulateMatch(team1, team2) {
   // 50-50 coin flip for winner
   const differential = generateScoreDifferential();
-  const { winnerPoints, loserPoints } = calculateMatchPoints(Math.abs(differential));
+  const absDiff = Math.abs(differential);
+  
+  // Convert differential to game scores (scale 0-10)
+  // Winner gets a score proportional to the differential
+  // Base them around 5 points each, with differential splitting the gap
+  let winnerScore, loserScore;
+  
+  if (absDiff < 1) {
+    // Very close: scores like 5-4 or 5-5
+    winnerScore = 5;
+    loserScore = 5;
+  } else if (absDiff < 3) {
+    // Close game: scores like 6-5, 7-4
+    winnerScore = Math.min(10, Math.round(5 + absDiff / 1.5));
+    loserScore = Math.max(0, Math.round(5 - absDiff / 1.5));
+  } else {
+    // Larger differential: scores like 8-3, 9-2
+    winnerScore = Math.min(10, Math.round(5 + absDiff / 2));
+    loserScore = Math.max(0, Math.round(5 - absDiff / 2));
+  }
+  
+  const { winnerPoints, loserPoints } = calculateMatchPoints(winnerScore, loserScore);
 
   if (differential >= 0) {
     // Team 1 wins
@@ -37,7 +58,7 @@ function simulateMatch(team1, team2) {
       loser: team2.id,
       team1Points: winnerPoints,
       team2Points: loserPoints,
-      differential: Math.abs(differential),
+      differential: absDiff,
     };
   } else {
     // Team 2 wins
@@ -46,7 +67,7 @@ function simulateMatch(team1, team2) {
       loser: team1.id,
       team1Points: loserPoints,
       team2Points: winnerPoints,
-      differential: Math.abs(differential),
+      differential: absDiff,
     };
   }
 }

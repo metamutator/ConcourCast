@@ -45,9 +45,10 @@ export function calculateStandings(teams, matches) {
         return;
       }
 
-      // Calculate score differential and match points
-      const differential = Math.abs(match.team1Score - match.team2Score);
-      const { winnerPoints, loserPoints } = calculateMatchPoints(differential);
+      // Calculate match points based on actual game scores
+      const { winnerPoints, loserPoints } = match.team1Score > match.team2Score
+        ? calculateMatchPoints(match.team1Score, match.team2Score)
+        : calculateMatchPoints(match.team2Score, match.team1Score);
 
       // Determine winner and update standings
       if (match.team1Score > match.team2Score) {
