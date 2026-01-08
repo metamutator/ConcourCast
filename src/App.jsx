@@ -1,18 +1,41 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TeamInputForm from './components/TeamInputForm'
 import ResultsDisplay from './components/ResultsDisplay'
 import MatchPointCalculator from './components/MatchPointCalculator'
 import AdminPanel from './components/AdminPanel'
 import StrategicInsights from './components/StrategicInsights'
+import MonteCarloOverview from './components/MonteCarloOverview'
 import { runSimulation } from './utils/simulator'
+import { loadTournamentData, calculateStandings } from './utils/tournamentData'
 
 function App() {
   const [results, setResults] = useState(null)
   const [teamName, setTeamName] = useState('')
   const [isCalculating, setIsCalculating] = useState(false)
-  const [currentView, setCurrentView] = useState('calculator') // 'calculator' or 'admin'
+  const [currentView, setCurrentView] = useState('calculator') // 'calculator' | 'overview' | 'admin'
   const [tournamentData, setTournamentData] = useState(null)
   const [teams, setTeams] = useState([])
+  const [dataLoading, setDataLoading] = useState(false)
+  const [dataError, setDataError] = useState('')
+
+  useEffect(() => {
+    async function bootstrapData() {
+      setDataLoading(true)
+      setDataError('')
+      const data = await loadTournamentData()
+      if (!data) {
+        setDataError('No tournament data found. Upload via Admin or ensure public/tournament-data.json exists.')
+        setDataLoading(false)
+        return
+      }
+      const currentStandings = calculateStandings(data.teams, data.matches)
+      setTournamentData(data)
+      setTeams(currentStandings)
+      setDataLoading(false)
+    }
+
+    bootstrapData()
+  }, [])
 
   const handleCalculate = ({ teams, currentRound, targetTeamId, teamName: name, tournamentData }) => {
     setIsCalculating(true)
@@ -66,6 +89,16 @@ function App() {
               >
                 Calculator
               </button>
+              <button
+                onClick={() => setCurrentView('overview')}
+                className={`px-4 py-2 rounded-lg transition-colors ${
+                  currentView === 'overview'
+                    ? 'bg-white text-blue-900 font-semibold'
+                    : 'bg-blue-800 text-blue-100 hover:bg-blue-700'
+                }`}
+              >
+                Monte Carlo Overview
+              </button>
               {/* Only show Admin panel in development mode */}
               {import.meta.env.DEV && (
                 <button
@@ -87,6 +120,33 @@ function App() {
       <main className="container mx-auto px-4 py-8 max-w-6xl">
         {currentView === 'admin' && import.meta.env.DEV ? (
           <AdminPanel />
+        ) : currentView === 'overview' ? (
+          <>
+            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+              <h2 className="text-2xl font-semibold text-gray-800 mb-2">Monte Carlo Overview</h2>
+              <p className="text-gray-600 text-sm">
+                Quick multi-team simulations using the latest tournament data. This view is independent of any selected team.
+              </p>
+            </div>
+
+            {dataLoading && (
+              <div className="bg-white rounded-lg shadow-md p-10 text-center">
+                <div className="inline-block animate-spin rounded-full h-10 w-10 border-b-2 border-blue-900 mb-3"></div>
+                <p className="text-gray-600">Loading tournament data...</p>
+              </div>
+            )}
+
+            {dataError && !dataLoading && (
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                <p className="text-yellow-800 font-semibold mb-2">Tournament data not found</p>
+                <p className="text-yellow-700 text-sm">{dataError}</p>
+              </div>
+            )}
+
+            {tournamentData && teams.length > 0 && !dataLoading && (
+              <MonteCarloOverview teams={teams} tournamentData={tournamentData} />
+            )}
+          </>
         ) : (
           <>
             {/* Introduction */}

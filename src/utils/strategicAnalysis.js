@@ -135,7 +135,7 @@ function simulateMatchOutcome({ teams, tournamentData, match, teamName, outcome 
 /**
  * Simulate all remaining matches with best/worst outcomes
  */
-function simulateAllOutcomes({ teams, tournamentData, teamName, scenario }) {
+function simulateAllOutcomes({ teams, tournamentData, teamName, scenario, iterations = 3000 }) {
   const yourRemainingMatches = getRemainingMatches(teamName, tournamentData.matches);
   const allRemainingMatches = tournamentData.matches.filter(
     m => m.team1Score === null || m.team2Score === null
@@ -174,9 +174,20 @@ function simulateAllOutcomes({ teams, tournamentData, teamName, scenario }) {
     teams: updatedTeams,
     currentRound: tournamentData.tournament.currentRound,
     remainingMatches,
-    iterations: 3000,
+    iterations,
     targetTeamId: teamName,
   });
+}
+
+// Lightweight export for bulk dashboards (best/worst cases without full strategic panel)
+export function getExtremeScenarioProbabilities({ teamName, teams, tournamentData, iterations = 1200 }) {
+  const best = simulateAllOutcomes({ teams, tournamentData, teamName, scenario: 'best', iterations });
+  const worst = simulateAllOutcomes({ teams, tournamentData, teamName, scenario: 'worst', iterations });
+
+  return {
+    best: best.probabilities.semifinals,
+    worst: worst.probabilities.semifinals,
+  };
 }
 
 /**
